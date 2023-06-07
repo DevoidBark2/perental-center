@@ -1,0 +1,21 @@
+.header{
+    display: flex;
+    position: sticky;
+    flex-direction: column;
+    gap: 30px;
+    height: 525px;
+    background: #2c67e3;
+    width: 20%;
+    padding: 20px 25px;
+    border-radius: 15px;
+}
+.header_link{
+    text-decoration: none;
+    color:white;
+    background: #182dff;
+    padding: 10px;
+    transition: ALL 0.3s ease-in;
+}
+.header_link:hover{
+    transform: translateX(10px);
+}
