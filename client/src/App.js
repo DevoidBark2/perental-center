@@ -8,27 +8,32 @@ import Profile from "./components/Profile/Prodile";
 import Users from "./components/Users/Users";
 import GenerateDoc from "./components/GenerateDoc/generateDoc";
 import Auth from "./components/Auth/Auth";
+import Main from "./admin/Main/Main";
 
 function App() {
     const [auth,setAuth] = useState(true)
   return (
-    <div className="container app">
+    <div className="app">
      <div className="main-block">
              {
                  auth ?
                      <>
                          <Header/>
-                         <main className="main">
+                         <div className="container">
+                             <main className="main">
                                  <Routes>
                                      <Route path="/" element={<AddUser/>}/>
                                      <Route path="/param" element={<Param/>}/>
                                      <Route path="/profile" element={<Profile/>}/>
                                      <Route path="/users" element={<Users/>}/>
                                      <Route path="/generate_doc" element={<GenerateDoc/>}/>
+
                                  </Routes>
-                         </main>
+                             </main>
+                         </div>
                      </> : <Routes>
-                        <Route path="/auth" element={<Auth/>}/>
+                         <Route path="/admin" element={<Main/>}/>
+                        <Route path="/" element={<Auth/>}/>
                      </Routes>
              }
      </div>

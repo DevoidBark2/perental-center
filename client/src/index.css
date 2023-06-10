@@ -7,7 +7,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.form-control:focus{
+  /*border-color: #2c67e3!important;*/
+  border-color: #80bdff!important;
+  box-shadow: none!important;
+}
+.react-select__control--is-focused {
+  border-color: #80bdff;
+  box-shadow:none!important;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

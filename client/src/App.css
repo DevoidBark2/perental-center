@@ -1,15 +1,11 @@
 .app{
-    margin-top:20px;
+    /*margin-top:20px;*/
 }
 .main-block{
-    display: flex;
-    align-items: flex-start;
+    /*display: flex;*/
+    /*align-items: flex-start;*/
+    /*margin-top: 20px;*/
 }
 .main{
-    margin-left: 20px;
-}
-@media (max-width: 1106px) {
-    .App{
-        max-width: 900px;
-    }
+
 }
