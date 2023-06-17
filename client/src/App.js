@@ -9,6 +9,7 @@ import Users from "./components/Users/Users";
 import GenerateDoc from "./components/GenerateDoc/generateDoc";
 import Auth from "./components/Auth/Auth";
 import Main from "./admin/Main/Main";
+import UserDetails from "./components/Users/UserDetails/UserDetails";
 
 function App() {
     const [auth,setAuth] = useState(true)
@@ -27,7 +28,7 @@ function App() {
                                      <Route path="/profile" element={<Profile/>}/>
                                      <Route path="/users" element={<Users/>}/>
                                      <Route path="/generate_doc" element={<GenerateDoc/>}/>
-
+                                     <Route path="/users/:id" element={<UserDetails/>} />
                                  </Routes>
                              </main>
                          </div>

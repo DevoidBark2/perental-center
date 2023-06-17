@@ -1,0 +1,22 @@
+.block_top_btn{
+    display: flex;
+    justify-content: flex-end;
+}
+.first_row{
+    display: flex;
+    justify-content: normal;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: center;
+}
+.top_block{
+    margin-top: 20px;
+}
+.block_title{
+
+}
+@media (max-width: 768px){
+    .block_title{
+        text-align: center;
+    }
+}

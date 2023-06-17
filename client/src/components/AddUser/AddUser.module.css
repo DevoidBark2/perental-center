@@ -1,17 +1,16 @@
-.contact_block {
+.top_block{
     background-color: #e5e5ea;
     border-radius: 20px;
+    box-shadow: 0 0 10px rgba(171, 171, 171, 0.9);
+}
+.contact_block {
     padding: 20px 30px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    box-shadow: 0 0 10px rgba(171, 171, 171, 0.9);
 }
 .prep_block{
-    background-color: #e5e5ea;
-    border-radius: 20px;
     padding: 20px 30px;
-    box-shadow: 0 0 10px rgba(171, 171, 171, 0.9);
 }
 .sub_informations{
     box-shadow: 0 0 10px rgba(171, 171, 171, 0.9);
@@ -36,8 +35,9 @@
 /*    background-color: #e5e5ea;*/
 /*}*/
 .submit_btn{
-    margin: 0 auto;
     text-align: center;
+    margin: 0 auto 10px;
+    display: flex;
 }
 .add_user_block{
     padding: 10px;
@@ -51,4 +51,14 @@
 }
 .rows{
     margin-top: 30px;
+}
+@media (max-width: 767px) {
+    .sub_informations{
+        margin-top: 0!important;
+    }
+    .form_block{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
 }

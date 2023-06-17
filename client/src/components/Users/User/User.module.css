@@ -1,0 +1,13 @@
+.user_block{
+    display: flex;
+    justify-content: space-between;
+    background: #e5e5ea;
+    border-radius: 20px;
+    padding: 20px;
+    transition: all 0.3s ease-in;
+    margin-top: 10px;
+}
+.user_block:hover{
+    box-shadow: 0 0 20px rgba(224, 224, 225, 0.8);
+    cursor: pointer;
+}

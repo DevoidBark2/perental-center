@@ -18,6 +18,7 @@ function AddUser () {
     const [massPriRogd,setMassPriRogd] = useState([]);
     const [srokGist,setSrokGist] = useState([]);
     const [diseases,setDiseases] = useState([]);
+
     const [kd,setKd] = useState('')
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -94,16 +95,48 @@ function AddUser () {
         event.preventDefault();
         try {
             const response = await axios.post('/', JSON.stringify({
+                k_d: kd,
                 first_name: firstName,
-                second_name: lastName
+                sur_name: surname,
+                last_name:lastName,
+                vipisan:vipisanValue,
+                postupil:postupilValue,
+                perevod:perevodValue,
+                bsj:isBsjChecked ? 'Да' : 'Нет',
+                audioscrinning: audioscrinningChecked ? 'Да' : 'Нет',
+                fku : fkuChecked ? 'Да' : 'Нет',
+                sosPriPost: sosPriPostChecked ? 'Тяжелое' : 'Среднее',
+                perefKateter : perefKateterChecked ? 'Да' : 'Нет',
+                linia: liniaChecked ? 'Да' : 'Нет',
+                aminoven : aminovenChecked ? 'Да' : 'Нет',
+                lipofundin : lipofundinChecked ? 'Да' : 'Нет',
+                grudVskar : grudVskarChecked ? 'Да' : 'Нет',
+                smechVskar : smechVskarChecked ? 'Да' : 'Нет',
+                isskusVskar : isskusVskarChecked ? 'Да' : 'Нет',
+                immunoglobulin:immunoglobValue,
+                antibiotiki:antibiotikValue,
+                bmp:bmpValue,
+                propiska: propiskaValue,
+                vosrPriPost: vosrPriPostupValue,
+                massPriRog : massPriRogValue,
+                srokGist: srokGistValue,
+                main_diseases:diseasesValue,
+                sub_diseases:subDiseasesValue
+
             }), {
                 headers: { 'Content-Type': 'application/json' }
             });
             if (!response.ok) {
                 throw new Error('Failed to add user.');
             }
+            setFirstName('')
+            setLastName('')
+            setSurName('')
             alert('User successfully added.');
         } catch (error) {
+            setFirstName('')
+            setLastName('')
+            setSurName('')
             console.error('Error while adding user: ', error);
             alert('An error occurred while trying to add the user.');
         }
@@ -187,12 +220,11 @@ function AddUser () {
         setSubDiseasesValue(newValue.map(v => v.value))
     }
 
-    console.log(diseasesValue)
-    console.log(subDiseasesValue)
     return (
         <div className={styles.add_user_block}>
-            <form onSubmit={handleSubmit} className="row">
-                <div className={`col-md-4 ${styles.contact_block}`}>
+            <form onSubmit={handleSubmit} className={`row ${styles.form_block}`}>
+                <div className={`row ${styles.top_block}`}>
+                    <div className={`col-md-4 ${styles.contact_block}`}>
                     <h3>Контактная информация</h3>
                     <InputGroup>
                         <Form.Control
@@ -201,6 +233,7 @@ function AddUser () {
                             aria-describedby="basic-addon1"
                             value={kd}
                             onChange={(event) => setKd(event.target.value)}
+                            required={true}
                         />
                     </InputGroup>
                     <InputGroup>
@@ -210,6 +243,7 @@ function AddUser () {
                             aria-describedby="basic-addon1"
                             value={firstName}
                             onChange={(event) => setFirstName(event.target.value)}
+                            required={true}
                         />
                     </InputGroup>
                     <InputGroup>
@@ -219,6 +253,7 @@ function AddUser () {
                             aria-describedby="basic-addon1"
                             value={lastName}
                             onChange={(event) => setLastName(event.target.value)}
+                            required={true}
                         />
                     </InputGroup>
                     <InputGroup>
@@ -228,6 +263,7 @@ function AddUser () {
                             aria-describedby="basic-addon1"
                             value={surname}
                             onChange={(event) => setSurName(event.target.value)}
+                            required={true}
                         />
                     </InputGroup>
                     <Select
@@ -235,22 +271,24 @@ function AddUser () {
                         placeholder="Выписан домой..."
                         value={getVipsianValue()}
                         onChange={onChangeVipisanValue}
+                        required={true}
                     />
                     <Select
                         options={postupil}
                         placeholder="Откуда поступил..."
                         value={getPustupilValue()}
                         onChange={onChangePostupilValue}
+                        required={true}
                     />
                     <Select
                         options={perevod}
                         placeholder="Переведен в ОРИТН..."
                         value={getPerevodValue()}
                         onChange={onChangePerevodValue}
+                        required={true}
                     />
                 </div>
-                <div className="col-md-1"></div>
-                <div className={`col-md-7 ${styles.prep_block}`}>
+                    <div className={`col-md-8 ${styles.prep_block}`}>
                     <h3>Препараты</h3>
                     <div className={styles.rows}>
                         <div className={styles.first_row} >
@@ -309,6 +347,7 @@ function AddUser () {
                            placeholder="Иммуноглобулины..."
                            value={getImmunoglobValue()}
                            onChange={onChangeImmunoglobValue}
+                           required={true}
                        />
                        <Select
                            className="col-md-6 col-sm-12"
@@ -318,6 +357,7 @@ function AddUser () {
                            placeholder="Антибиотики..."
                            value={getAntibiotikvalue()}
                            onChange={onChangeAntibiotikValue}
+                           required={true}
                        />
                        <Select
                            className="col-md-6 col-sm-12"
@@ -326,23 +366,26 @@ function AddUser () {
                            placeholder="БМП..."
                            value={getBmpValue()}
                            onChange={onChangeBmpValue}
+                           required={true}
                        />
                    </div>
                 </div>
+                </div>
+
                 <div className={`col-md-12 ${styles.sub_informations}`}>
                     <h3>Дополнительная информация</h3>
                     <div className="row">
-                        <Select className="col-md-3 col-sm-6" options={propiska} placeholder="Прописка..." value={getPropiskaValue()} onChange={onChangePropiskaValue}/>
-                        <Select className="col-md-3 col-sm-6" options={vosrPriPost} placeholder="Возраст при поступлении..." value={getVosrPriPostupValue()} onChange={onChangeVosrPriPostupValue}/>
-                        <Select className="col-md-3 col-sm-6" options={massPriRogd} placeholder="Масса при рождении..." value={getMassPriRogValue()} onChange={onChangeMassPriRogValue}/>
-                        <Select className="col-md-3 col-sm-6" options={srokGist} placeholder="Срок гистации..." value={getSrokGistValue()} onChange={onChangeSrokGistValue}/>
+                        <Select className="col-md-3 col-sm-6" options={propiska} placeholder="Прописка..." value={getPropiskaValue()} onChange={onChangePropiskaValue} required={true}/>
+                        <Select className="col-md-3 col-sm-6" options={vosrPriPost} placeholder="Возраст при поступлении..." value={getVosrPriPostupValue()} onChange={onChangeVosrPriPostupValue} required={true}/>
+                        <Select className="col-md-3 col-sm-6" options={massPriRogd} placeholder="Масса при рождении..." value={getMassPriRogValue()} onChange={onChangeMassPriRogValue} required={true}/>
+                        <Select className="col-md-3 col-sm-6" options={srokGist} placeholder="Срок гистации..." value={getSrokGistValue()} onChange={onChangeSrokGistValue} required={true}/>
                     </div>
                     <br/>
-                    <Select options={diseases} placeholder="Основное заболевание..." value={getDiseasesValue()} onChange={onChangeDiseasesValue}/>
+                    <Select options={diseases} placeholder="Основное заболевание..." value={getDiseasesValue()} onChange={onChangeDiseasesValue} required={true}/>
                     <br/>
-                    <Select isMulti={true} options={diseases} placeholder="Сопуствующие заболевания..." value={getSubDiseasesvalue()} onChange={onChangeSubDiseasesValue} />
+                    <Select isMulti={true} options={diseases} placeholder="Сопуствующие заболевания..." value={getSubDiseasesvalue()} onChange={onChangeSubDiseasesValue} required={true}/>
                 </div>
-                <Button className={`col-md-3 ${styles.submit_btn}`} type="submit" bsStyle="primary">Добавить</Button>
+                <Button className={`col-md-3 ${styles.submit_btn}`} type="submit" bsstyle="primary">Добавить</Button>
             </form>
         </div>
     );
