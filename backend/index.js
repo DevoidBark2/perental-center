@@ -1,18 +1,12 @@
 import express from "express";
-import pg from "pg";
 import cors from "cors";
+import router from "./routes/index.js";
+import pool from "./db.js";
+
 const app = express();
 app.use(express.json())
 app.use(cors())
-
-const {Pool} = pg;
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'perental-center',
-    password: 'root',
-    port: 5432,
-    });
+app.use('/api',router)
 
 app.get('/users', async (req, res) => {
     try {

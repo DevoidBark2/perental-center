@@ -126,17 +126,14 @@ function AddUser () {
             }), {
                 headers: { 'Content-Type': 'application/json' }
             });
-            if (!response.ok) {
-                throw new Error('Failed to add user.');
+            if (response.ok) {
+                console.log("asdasd")
             }
             setFirstName('')
             setLastName('')
             setSurName('')
             alert('User successfully added.');
         } catch (error) {
-            setFirstName('')
-            setLastName('')
-            setSurName('')
             console.error('Error while adding user: ', error);
             alert('An error occurred while trying to add the user.');
         }
