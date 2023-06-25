@@ -1,9 +1,28 @@
+import ageAtAdmissionModule from "../models/ageAtAdmission.module.js";
+import antibioticsModel from "../models/antibiotics.module.js";
+
 class AgeAtAdmissionController {
-    async getAgeAtAdmission (req,res){
-
+    async getAll (req, res){
+        const ageAtAdmission = await ageAtAdmissionModule.getAllAgeAdmission();
+        res.json(ageAtAdmission);
     }
-    async createAgeAtAdmission (req,res){
-
+    async create (req, res){
+        const {name} = req.body;
+        const result = await ageAtAdmissionModule.createAgeAdmission(name);
+        if (result.success) {
+            res.status(200).json({ success: true, message: result.message });
+        } else {
+            res.status(400).json({ success: false, message: result.message });
+        }
+    }
+    async delete(req, res){
+        const {id} = req.params;
+        const result = await ageAtAdmissionModule.deleteAgeAdmission(id)
+        if (result.success) {
+            res.status(200).json({ success: true, message: result.message });
+        } else {
+            res.status(400).json({ success: false, message: result.message });
+        }
     }
 }
 

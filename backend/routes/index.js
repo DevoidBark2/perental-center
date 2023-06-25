@@ -13,7 +13,7 @@ import registrationRouter from "./registrationRouter.js";
 import translatedRouter from "./translatedRouter.js";
 import weightAtBirthRouter from "./weightAtBirthRouter.js";
 
-router.use('/user',usersRouter)
+router.use('/users',usersRouter)
 router.use('/ageAtAdmission',ageAtAdmissionRouter)
 router.use('/antibiotics',antibioticsRouter)
 router.use('/bmp',bmpRouter)

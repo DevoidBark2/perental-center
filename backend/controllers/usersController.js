@@ -1,3 +1,4 @@
+import apiError from "../error/apiError.js";
 class UsersController {
     async getUsers(req,res){
 
@@ -5,7 +6,7 @@ class UsersController {
     async createUser(req,res){
 
     }
-    async getOneUser(req,res){
+    async getOneUser(req,res,next){
 
     }
     async deleteUser(req,res){

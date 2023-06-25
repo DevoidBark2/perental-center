@@ -1,13 +1,13 @@
-import dischargedModule from "../models/discharged.module.js";
+import gestationPeriodModule from "../models/gestationPeriod.module.js";
 
-class DischargedController {
+class GestationPeriodController {
     async getAll (req, res){
-        const antibiotics = await dischargedModule.getAllDischarged();
-        res.json(antibiotics);
+        const entered = await gestationPeriodModule.getAllGestation();
+        res.json(entered);
     }
     async create (req, res){
         const {name} = req.body;
-        const result = await dischargedModule.createDischarged(name);
+        const result = await gestationPeriodModule.createGestation(name);
         if (result.success) {
             res.status(200).json({ success: true, message: result.message });
         } else {
@@ -16,7 +16,7 @@ class DischargedController {
     }
     async delete (req, res){
         const {id} = req.params;
-        const result = await dischargedModule.deleteDischarged(id)
+        const result = await gestationPeriodModule.deleteGestation(id)
         if (result.success) {
             res.status(200).json({ success: true, message: result.message });
         } else {
@@ -25,4 +25,4 @@ class DischargedController {
     }
 }
 
-export default DischargedController;
+export default GestationPeriodController;

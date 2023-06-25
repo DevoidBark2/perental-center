@@ -1,8 +1,12 @@
 import Router from "express";
 
-const router = new Router();
+import EnteredController from "../controllers/enteredController.js";
 
-router.get('/')
-router.post('/')
+const router = new Router();
+const enteredController = new EnteredController();
+
+router.get('/',enteredController.getAll)
+router.post('/',enteredController.create)
+router.delete('/:id',enteredController.delete)
 
 export default router;
