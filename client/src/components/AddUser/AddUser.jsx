@@ -51,7 +51,7 @@ function AddUser () {
 
 
     useEffect(() => {
-        axios.get('/get_data')
+        axios.get('api/get_data')
             .then(res => {
                 const data = res.data;
                 if (data.antibiotiki) {

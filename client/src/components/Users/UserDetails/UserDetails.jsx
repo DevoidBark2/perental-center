@@ -59,43 +59,43 @@ function UserDetails () {
     const [userBmpValue, setUserBmpValue] = useState([]);
     const [changeData, setChangeData] = useState(false);
     function getUserData() {
-        axios.get(`/users/${id}`).then(res => setUser(res.data.data)).finally(() => setLoadUserData(false));
+        axios.get(`api/users/${id}`).then(res => setUser(res.data.data)).finally(() => setLoadUserData(false));
     }
     useEffect(() => {
         getUserData()
     }, [id]);
-
+    console.log(user)
     useEffect(() => {
         if (user) {
-            setFirstName(user.first_name);
-            setLastName(user.last_name)
-            setKd(user.k_d)
-            setSurName(user.sur_name)
-            setIsBsjChecked(user.bsj === 'Да');
-            setaAdioscrinningChecked(user.audioscrinning === 'Да');
-            setFkuChecked(user.fku === 'Да');
-            setSosPriPostChecked(user.sosPriPost === 'Тяжелое')
-            setPerefKateterChecked(user.perefKateter === 'Да')
-            setLiniaChecked(user.linia === 'Да')
-            setAminovenChecked(user.aminoven === 'Да')
-            setLipofundinChecked(user.lipofundin === 'Да')
-            setGrudVskarChecked(user.grudVskar === 'Да')
-            setSmechVskarChecked(user.smechVskar === 'Да')
-            setIsskusVskarChecked(user.isskusVskar === 'Да')
+            setFirstName(user[0].first_name);
+            setLastName(user[0].last_name)
+            setKd(user[0].k_d)
+            setSurName(user[0].sur_name)
+            setIsBsjChecked(user[0].bsj === 'Да');
+            setaAdioscrinningChecked(user[0].audioscrinning === 'Да');
+            setFkuChecked(user[0].fku === 'Да');
+            setSosPriPostChecked(user[0].sosPriPost === 'Тяжелое')
+            setPerefKateterChecked(user[0].perefKateter === 'Да')
+            setLiniaChecked(user[0].linia === 'Да')
+            setAminovenChecked(user[0].aminoven === 'Да')
+            setLipofundinChecked(user[0].lipofundin === 'Да')
+            setGrudVskarChecked(user[0].grudVskar === 'Да')
+            setSmechVskarChecked(user[0].smechVskar === 'Да')
+            setIsskusVskarChecked(user[0].isskusVskar === 'Да')
 
-            setUserAntibiotiki(user.antibiotiki);
-            setUserImmunoglob(user.immunoglobulin)
-            setVipisanValue(user.vipisan);
-            setPerevodValue(user.perevod);
-            setPostupilValue(user.postupil);
-            setUserDiseases(user.main_disease);
-            setSubUserDiseases(user.sub_disease);
-            setUserPropiska(user.propiska);
+            setUserAntibiotiki(user[0].antibiotiki);
+            setUserImmunoglob(user[0].immunoglobulin)
+            setVipisanValue(user[0].vipisan);
+            setPerevodValue(user[0].perevod);
+            setPostupilValue(user[0].postupil);
+            setUserDiseases(user[0].main_disease);
+            setSubUserDiseases(user[0].sub_disease);
+            setUserPropiska(user[0].propiska);
 
-            setUserVosrPriPostp(user.vos_pri_post);
-            setUserMassPriRog(user.mass_pri_rog);
-            setUserSrokGist(user.srok_gist)
-            setUserBmpValue(user.bmp)
+            setUserVosrPriPostp(user[0].vos_pri_post);
+            setUserMassPriRog(user[0].mass_pri_rog);
+            setUserSrokGist(user[0].srok_gist)
+            setUserBmpValue(user[0].bmp)
         }
     }, [user]);
     useEffect(() => {
@@ -142,7 +142,7 @@ function UserDetails () {
     const handleChangeUserData = async () =>{
 
         try {
-            const response = await axios.put(`/users/${user.id}`, JSON.stringify({
+            const response = await axios.put(`api/users/${user.id}`, JSON.stringify({
                 k_d: kd,
                 first_name: firstName,
                 sur_name: sur_name,
@@ -350,7 +350,7 @@ function UserDetails () {
             <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item"><Link to="/users">Пациенты</Link></li>
-                    <li className="breadcrumb-item active " aria-current="page">{user?.last_name} {user?.first_name} {user?.sur_name}</li>
+                    <li className="breadcrumb-item active " aria-current="page">{lastName} {firstName} {sur_name}</li>
                 </ol>
             </nav>
             <div>

@@ -12,8 +12,13 @@ import immunoglobulinsRouter from "./immunoglobulinsRouter.js";
 import registrationRouter from "./registrationRouter.js";
 import translatedRouter from "./translatedRouter.js";
 import weightAtBirthRouter from "./weightAtBirthRouter.js";
+import authRouter from "./authRouter.js";
+import allDataForFormRouter from "./allDataForFormRouter.js";
 
 router.use('/users',usersRouter)
+router.use('/auth',authRouter)
+
+router.use('/get_data',allDataForFormRouter)
 router.use('/ageAtAdmission',ageAtAdmissionRouter)
 router.use('/antibiotics',antibioticsRouter)
 router.use('/bmp',bmpRouter)

@@ -1,5 +1,4 @@
 import ageAtAdmissionModule from "../models/ageAtAdmission.module.js";
-import antibioticsModel from "../models/antibiotics.module.js";
 
 class AgeAtAdmissionController {
     async getAll (req, res){

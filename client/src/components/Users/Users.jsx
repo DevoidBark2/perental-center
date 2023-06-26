@@ -7,7 +7,7 @@ function Users (){
     const [users,setUsers] = useState([]);
     const [loadUsersData,setloadUsersData] = useState(true)
     useEffect(() => {
-        axios.get('/users').then(res => setUsers(res.data.data)).finally(() => setloadUsersData(false))
+        axios.get('api/users').then(res => setUsers(res.data.data)).finally(() => setloadUsersData(false))
     },[])
 
 
