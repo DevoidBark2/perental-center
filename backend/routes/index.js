@@ -14,6 +14,7 @@ import translatedRouter from "./translatedRouter.js";
 import weightAtBirthRouter from "./weightAtBirthRouter.js";
 import authRouter from "./authRouter.js";
 import allDataForFormRouter from "./allDataForFormRouter.js";
+import paramRouter from "./paramRouter.js";
 
 router.use('/users',usersRouter)
 router.use('/auth',authRouter)
@@ -29,6 +30,7 @@ router.use('/immunoglobulins',immunoglobulinsRouter)
 router.use('/registration',registrationRouter)
 router.use('/translated',translatedRouter)
 router.use('/weightAtBirth',weightAtBirthRouter)
+router.use('/get_param',paramRouter)
 
 
 export default router;

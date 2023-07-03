@@ -187,6 +187,14 @@ function UserDetails () {
             alert('An error occurred while trying to add the user.(update)');
         }
     }
+    const handleDeleteUser = async (id) =>{
+        try{
+            const response = await axios.delete(`/api/users/${id}`);
+            window.location.href = "/users";
+        }catch (e){
+
+        }
+    }
 
     if (loadUserData) {
         return <div>Loading...</div>
@@ -344,7 +352,7 @@ function UserDetails () {
         setIsskusVskarChecked(event.target.checked)
         setChangeData(true)
     }
-
+    console.log(user)
     return (
         <div className={styles.user_details_block}>
             <nav aria-label="breadcrumb">
@@ -356,7 +364,7 @@ function UserDetails () {
             <div>
                 <div className={styles.block_top_btn}>
                     {changeData ?  <Button className="btn btn-success" onClick={() => handleChangeUserData()}>Сохранить пациента</Button> : ""}
-                    <Button className="btn btn-danger">Удалить пациента</Button>
+                    <Button className="btn btn-danger" onClick={() => handleDeleteUser(user[0].id)}>Удалить пациента</Button>
                     <Button className="btn btn-warning" onClick={() => setActiveInputs(!activeInputs)}>Изменить пациента</Button>
                 </div>
                 <div className={`row ${styles.top_block}`}>

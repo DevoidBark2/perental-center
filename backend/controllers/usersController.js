@@ -15,19 +15,17 @@ class UsersController {
         }
     }
     async create(req,res){
-        const {last_name} = req.body;
-        console.log(last_name)
-        res.json(last_name)
-        //const result = await usersModule.createUser(data)
+        const result = await usersModule.createUser(req)
+        res.status(200).json(result)
     }
 
     async delete(req,res){
-        const {id} = req.param;
+        const {id} = req.params;
         const result = await usersModule.deleteUser(id);
         res.json(result);
     }
     async change(req,res){
-        const {id} = req.param;
+        const {id} = req.params;
         const result = await usersModule.changeUser(id);
         res.json(result);
     }

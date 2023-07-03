@@ -94,7 +94,7 @@ function AddUser () {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('/', JSON.stringify({
+            const response = await axios.post('/api/users', JSON.stringify({
                 k_d: kd,
                 first_name: firstName,
                 sur_name: surname,
@@ -126,13 +126,14 @@ function AddUser () {
             }), {
                 headers: { 'Content-Type': 'application/json' }
             });
-            if (response.ok) {
-                console.log("asdasd")
-            }
+            // console.log(response)
+            // if (response.ok) {
+            //     console.log("asdasd")
+            // }
             setFirstName('')
             setLastName('')
             setSurName('')
-            alert('User successfully added.');
+            alert(response.data.message);
         } catch (error) {
             console.error('Error while adding user: ', error);
             alert('An error occurred while trying to add the user.');
