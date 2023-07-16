@@ -26,7 +26,7 @@ class UsersController {
     }
     async change(req,res){
         const {id} = req.params;
-        const result = await usersModule.changeUser(id);
+        const result = await usersModule.changeUser(req,id);
         res.json(result);
     }
 }

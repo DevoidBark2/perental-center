@@ -3,13 +3,22 @@ import styles from "./Auth.module.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axios from "../../axios";
+import {useNavigate} from "react-router-dom";
 function Auth(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
-       axios.post('/login',{email,password}).then(r => console.log(r))
+        axios.post('api/auth/login', { email, password })
+            .then((response) => {
+                localStorage.setItem('token', response.data.token); // Сохранение токена в localStorage
+                navigate('/')
+                console.log(response);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     };
     return <div className={styles.auth_block}>
         <Form onSubmit={handleSubmit}>

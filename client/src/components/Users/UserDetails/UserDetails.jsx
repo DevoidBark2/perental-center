@@ -5,7 +5,9 @@ import axios from "../../../axios";
 import Button from "react-bootstrap/Button";
 import {InputGroup} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal"
 import Select from "react-select";
+import {toast, ToastContainer} from "react-toastify";
 function UserDetails () {
 
     const { id } = useParams();
@@ -58,13 +60,15 @@ function UserDetails () {
     const [userSrokGist, setUserSrokGist] = useState([]);
     const [userBmpValue, setUserBmpValue] = useState([]);
     const [changeData, setChangeData] = useState(false);
+
+    const [showModal, setShowModal] = useState(false);
     function getUserData() {
         axios.get(`api/users/${id}`).then(res => setUser(res.data.data)).finally(() => setLoadUserData(false));
     }
     useEffect(() => {
         getUserData()
     }, [id]);
-    console.log(user)
+
     useEffect(() => {
         if (user) {
             setFirstName(user[0].first_name);
@@ -74,14 +78,15 @@ function UserDetails () {
             setIsBsjChecked(user[0].bsj === 'Да');
             setaAdioscrinningChecked(user[0].audioscrinning === 'Да');
             setFkuChecked(user[0].fku === 'Да');
-            setSosPriPostChecked(user[0].sosPriPost === 'Тяжелое')
-            setPerefKateterChecked(user[0].perefKateter === 'Да')
+            setSosPriPostChecked(user[0].sos_pri_post === 'Тяжелое')
+            setPerefKateterChecked(user[0].peref_kateter === 'Да')
             setLiniaChecked(user[0].linia === 'Да')
             setAminovenChecked(user[0].aminoven === 'Да')
             setLipofundinChecked(user[0].lipofundin === 'Да')
-            setGrudVskarChecked(user[0].grudVskar === 'Да')
-            setSmechVskarChecked(user[0].smechVskar === 'Да')
-            setIsskusVskarChecked(user[0].isskusVskar === 'Да')
+            setGrudVskarChecked(user[0].grud_vskar === 'Да')
+            setSmechVskarChecked(user[0].smech_vskar === 'Да')
+            setIsskusVskarChecked(user[0].isskus_vskar === 'Да')
+
 
             setUserAntibiotiki(user[0].antibiotiki);
             setUserImmunoglob(user[0].immunoglobulin)
@@ -99,7 +104,7 @@ function UserDetails () {
         }
     }, [user]);
     useEffect(() => {
-        axios.get('/get_data')
+        axios.get('api/get_data')
             .then(res => {
                 const data = res.data;
                 if (data.antibiotiki) {
@@ -140,9 +145,8 @@ function UserDetails () {
     }, []);
 
     const handleChangeUserData = async () =>{
-
         try {
-            const response = await axios.put(`api/users/${user.id}`, JSON.stringify({
+            const response = await axios.put(`api/users/${user[0].id}`, JSON.stringify({
                 k_d: kd,
                 first_name: firstName,
                 sur_name: sur_name,
@@ -174,13 +178,19 @@ function UserDetails () {
             }), {
                 headers: { 'Content-Type': 'application/json' }
             });
-            // if (!response.ok) {
-            //     alert(response)
-            // }
             setActiveInputs(true)
             setChangeData(false)
             getUserData();
-            alert(response.data);
+            toast.success(response.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         } catch (error) {
             console.error('Error while adding user: ', error);
             setActiveInputs(true)
@@ -352,9 +362,10 @@ function UserDetails () {
         setIsskusVskarChecked(event.target.checked)
         setChangeData(true)
     }
-    console.log(user)
+    const handleClose = () => setShowModal(false);
     return (
         <div className={styles.user_details_block}>
+            <ToastContainer/>
             <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item"><Link to="/users">Пациенты</Link></li>
@@ -362,9 +373,19 @@ function UserDetails () {
                 </ol>
             </nav>
             <div>
-                <div className={styles.block_top_btn}>
+                <Modal show={showModal} onHide={handleClose} centered={true}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Подтверждение удаления</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Вы уверены, что хотите удалить пациента?</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>Отмена</Button>
+                        <Button variant="danger" onClick={() => handleDeleteUser(user[0].id)}>Удалить</Button>
+                    </Modal.Footer>
+                </Modal>
+                <div className={`col-md-12 ${styles.block_top_btn}`}>
                     {changeData ?  <Button className="btn btn-success" onClick={() => handleChangeUserData()}>Сохранить пациента</Button> : ""}
-                    <Button className="btn btn-danger" onClick={() => handleDeleteUser(user[0].id)}>Удалить пациента</Button>
+                    <Button className="btn btn-danger" onClick={() => setShowModal(true)}>Удалить пациента</Button>
                     <Button className="btn btn-warning" onClick={() => setActiveInputs(!activeInputs)}>Изменить пациента</Button>
                 </div>
                 <div className={`row ${styles.top_block}`}>

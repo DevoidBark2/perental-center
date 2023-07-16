@@ -7,14 +7,21 @@ class AuthModule{
                 text: 'SELECT * FROM users WHERE email=$1',
                 values: [email]
             };
-            await pool.query(query);
-            return { success: true, message: `Пользователь найден` };
+            return await pool.query(query);
         } catch (error) {
             console.error(error);
         }
     }
-    static async createUser(){
-
+    static async createUser(email, password) {
+        try {
+            const role = "ADMIN"
+            const query = 'INSERT INTO users (email,password,role) VALUES($1,$2,$3)';
+            const values = [email, password,role];
+            await pool.query(query, values);
+            return { success: true, message: 'Вы успешно зарегистрировались' };
+        } catch (error) {
+            console.error(error);
+        }
     }
 }
 
