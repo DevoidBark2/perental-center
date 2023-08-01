@@ -12,7 +12,7 @@ import Main from "./admin/Main/Main";
 import UserDetails from "./components/Users/UserDetails/UserDetails";
 
 function App() {
-    const [auth,setAuth] = useState(false)
+    const [auth,setAuth] = useState(true)
   return (
     <div className="app">
      <div className="main-block">

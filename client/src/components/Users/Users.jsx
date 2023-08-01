@@ -10,7 +10,6 @@ function Users (){
         axios.get('api/users').then(res => setUsers(res.data.data)).finally(() => setloadUsersData(false))
     },[])
 
-
     return <div>
         <h2>Список пациентов</h2>
         {loadUsersData ? (
