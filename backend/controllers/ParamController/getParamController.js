@@ -4,7 +4,7 @@ import {response} from "express";
 class GetParamController{
     async getAll(req,res){
         const result = await ParamsModule.getAllParams();
-        res.json({ count: result });
+        res.json({ data: result });
     }
 }
 export default GetParamController;
