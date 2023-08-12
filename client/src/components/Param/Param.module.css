@@ -1,3 +1,15 @@
 .param_block{
-    border:1px solid black;
+    box-shadow: 0 0 10px rgba(171, 171, 171, 0.9);
+    background-color: #e5e5ea;
+    border-radius: 20px;
+    padding: 30px 30px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+.params_list{
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    /*justify-content: space-evenly;*/
+    /*gap: 40px;*/
 }

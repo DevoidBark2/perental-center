@@ -3,13 +3,15 @@ import styles from "./Param.module.css";
 import axios from "../../axios";
 import User from "../Users/User/User";
 function Param () {
-    const [vipisan,setVipisan] = useState([])
+    const [params,setParams] = useState([])
     const [loading,setLoading] = useState(true)
 
     useEffect(()=> {
-       axios.get("/api/get_param").then(res => setVipisan(res.data.data)).finally(() => setLoading(false))
+       axios.get("/api/get_param").then(res => setParams(res.data.data)).finally(() => setLoading(false))
     },[])
-    console.log(vipisan)
+
+    console.log(params)
+
     return (
      <>
          <div>
@@ -17,15 +19,17 @@ function Param () {
                  <div>Loading...</div>
              ) : (
                  <>
-                     <div className="row">
-                         {vipisan.map(el => (
-                             <div className={`col-md-4 `+ styles.param_block}>
+                     <h1>Параметры</h1>
+                     <div className={styles.params_list}>
+                         {params.map((el,index) => (
+                             <div className={styles.param_block}>
                                  <h4>{el.label}</h4>
+                                 <hr/>
                                  {
                                      el.label === "Препараты" ? el.value.map(l => (
-                                         <p>{l.label}: Да - {l.value} Нет - {el.count - l.value}</p>
+                                         <p><span style={{fontWeight:"bold"}}>{l.label}</span>: <span style={{fontWeight:"bold"}}>Да</span> - <span style={{color:"brown",fontWeight:"bold"}}>{l.value}</span> <span style={{fontWeight:"bold"}}>Нет</span> - <span style={{color:"brown",fontWeight:"bold"}}>{el.count - l.value}</span></p>
                                      )) : el.value.map(l => (
-                                         <p>{l.label} - {l.value} {l.k_d_sum ? `К/Д: ${l.k_d_sum}` : ""}</p>
+                                         <p><span style={{fontWeight:"bold"}}>{l.label}</span> - <span style={{color:"brown",fontWeight:"bold"}}>{l.value}</span> {l.k_d_sum ? `К/Д: ${l.k_d_sum}` : ""}</p>
                                      ))
                                  }
                              </div>

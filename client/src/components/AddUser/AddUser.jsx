@@ -25,18 +25,8 @@ function AddUser () {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [surname, setSurName] = useState('');
-    const [vipisanValue, setVipisanValue] = useState('');
-    const [postupilValue, setPostupilValue] = useState('');
-    const [perevodValue, setPerevodValue] = useState('');
     const [antibiotikValue, setAntibiotikValue] = useState('');
     const [immunoglobValue, setImmunoglobValue] = useState('');
-    const [bmpValue, setBmpValue] = useState('');
-    const [propiskaValue, setPropiskaValue] = useState('');
-
-    const [vosrPriPostupValue, setVosrPriPostupValue] = useState('');
-    const [massPriRogValue, setMassPriRogValue] = useState('');
-    const [srokGistValue, setSrokGistValue] = useState('');
-    const [diseasesValue, setDiseasesValue] = useState('');
     const [subDiseasesValue, setSubDiseasesValue] = useState('');
 
     const [isBsjChecked, setIsBsjChecked] = useState(false);
@@ -50,6 +40,16 @@ function AddUser () {
     const [grudVskarChecked,setGrudVskarChecked] = useState(false)
     const [smechVskarChecked,setSmechVskarChecked] = useState(false)
     const [isskusVskarChecked,setIsskusVskarChecked] = useState(false)
+
+    const [vipisanValue, setVipisanValue] = useState("");
+    const [postupilValue, setPostupilValue] = useState("");
+    const [perevodValue, setPerevodValue] = useState("");
+    const [bmpValue, setBmpValue] = useState("");
+    const [propiskaValue, setPropiskaValue] = useState('');
+    const [vosrPriPostupValue, setVosrPriPostupValue] = useState('');
+    const [massPriRogValue, setMassPriRogValue] = useState('');
+    const [srokGistValue, setSrokGistValue] = useState('');
+    const [diseasesValue, setDiseasesValue] = useState("");
 
 
     useEffect(() => {
@@ -92,6 +92,7 @@ function AddUser () {
             })
             .catch(err => console.error(err));
     }, []);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -127,14 +128,13 @@ function AddUser () {
             }), {
                 headers: { 'Content-Type': 'application/json' }
             });
-            debugger;
             setKd('')
             setFirstName('')
             setLastName('')
             setSurName('')
-            setVipisanValue('')
-            setPostupilValue('')
-            setPerevodValue('')
+            setVipisanValue("")
+            setPostupilValue("")
+            setPerevodValue("")
             setIsBsjChecked(false)
             setAudioscrinningChecked(false)
             setFkuChecked(false)
@@ -148,14 +148,14 @@ function AddUser () {
             setIsskusVskarChecked(false)
             setImmunoglobValue('')
             setAntibiotikValue('')
-            setBmpValue('')
+            setBmpValue("")
             setPropiskaValue('')
             setVosrPriPostupValue('')
             setMassPriRogValue('')
             setSrokGistValue('')
-            setDiseasesValue('')
+            setDiseasesValue("")
             setSubDiseasesValue('')
-
+            console.log(vipisanValue)
             toast.success(response.data.message, {
                 position: "top-right",
                 autoClose: 5000,

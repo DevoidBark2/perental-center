@@ -30,6 +30,7 @@ function Users (){
     return <div className={styles.users_block}>
         <div className={styles.title_block}>
             <h2>Список пациентов</h2>
+            <h3>Всего пациентов: {users.length}</h3>
             <ReactPaginate
                 breakLabel="..."
                 nextLabel=">"

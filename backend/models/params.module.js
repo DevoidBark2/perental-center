@@ -588,6 +588,44 @@ class ParamsModule{
             }
         ]
     }
+
+
+    static async getAllParamsAdmin(){
+        const query = {
+            text: `SELECT * FROM public.admin_params`,
+        };
+        const res = await pool.query(query);
+
+        if (res.rows && res.rows.length > 0) {
+            return res.rows;
+        } else {
+            return [];
+        }
+    }
+    static async getInfoParam(req){
+        const {id} = req.params;
+
+        const query1 = {
+            text: `SELECT name FROM admin_category_params WHERE id = $1`,
+            values: [id]
+        };
+
+        const name_category = await pool.query(query1);
+
+        const query2 = {
+            text: `SELECT name FROM admin_params_elem WHERE params_id=$1`,
+            values: [id]
+        };
+
+        const values_param = await pool.query(query2);
+
+        // if (values_param.rows && values_param.rows.length > 0) {
+        //     return values_param.rows;
+        // } else {
+        //     return [];
+        // }
+        return {"site_name":name_category.rows,"values_param":values_param.rows}
+    }
 }
 
 export default ParamsModule;

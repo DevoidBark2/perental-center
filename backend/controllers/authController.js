@@ -10,7 +10,7 @@ class AuthController{
             if (candidate.rowCount !== 0) {
                 return res.status(200).json({ success:false, message: "Такой пользователь существует!",candidate:candidate });
             }
-            const hashPassword = bcrypt.hashSync(password,5);
+            const hashPassword = await bcrypt.hashSync(password,5);
 
             const result = await authModule.createUser(email,hashPassword)
             const token = jwt.sign({ email: email,role:"ADMIN"}, 'asdasda2131sad12312sad@#@$#$DSD', { expiresIn: '12h' });
@@ -49,16 +49,20 @@ class AuthController{
         }
     }
     async check(req, res) {
-        const token = req.cookies.token;
+        const token = req.headers.authorization.split(' ')[1]
+        if(!token) {
+            res.status(401).json({message:"Не авторизован"})
+        }
+        //const decoded = jwt.verify(token,"sECRET_kEY");
         if (!token) {
             return res.status(403).json({ success: false, message: "Пользователь не найден" });
         }
 
         try {
             const decodedData = jwt.verify(token, 'asdasda2131sad12312sad@#@$#$DSD');
-            res.json(decodedData);
+            return res.json(decodedData);
         } catch (error) {
-            return res.status(403).json({ success: false, message: "Недействительный токен" });
+            return res.status(403).json({ success: false, message: "Не авторизован" });
         }
     }
 }

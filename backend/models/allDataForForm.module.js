@@ -71,19 +71,51 @@ class AllDataForFormModule{
             label: row.label,
         }));
 
-       return {
-            antibiotiki,
-            vipisan,
-            perevod,
-            postupil,
-            bmp,
-            immunoglobulins,
-            propiska,
-            vosrt_pri_postup,
-            mass_pri_rogd,
-            srok_gist,
-            diseases
-        };
+       return [
+           {
+               "label" : "Антибиотики",
+                "value" :  antibiotiki,
+           },
+           {
+                "label" : "Переведен",
+               "value" : perevod
+           },
+           {
+               "label" : "Поступил",
+               "value" : postupil
+           },
+           {
+               "label" : "ВМБ",
+               "value" : bmp
+           },
+           {
+               "label" : "Иммуноглобулины",
+               "value" : immunoglobulins
+           },
+           {
+               "label": "Прописка",
+               "value": propiska
+           },
+
+
+
+           {
+               "label" : "Возраст при поступлении",
+               "value" : vosrt_pri_postup
+           },
+           {
+               "label" : "Масса при рождении",
+               "value" : mass_pri_rogd
+           },
+           {
+               "label" : "Срок гистации",
+               "value" : srok_gist
+           },
+           {
+               "label" : "Заболевания",
+               "value" : diseases
+           },
+       ]
 
     } catch(err) {
         console.error(err);
