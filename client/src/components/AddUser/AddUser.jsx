@@ -56,41 +56,21 @@ function AddUser () {
         axios.get('api/get_data')
             .then(res => {
                 const data = res.data;
-                if (data.antibiotiki) {
-                    setAntibiotiki(data.antibiotiki);
-                }
-                if (data.perevod) {
-                    setPerevod(data.perevod);
-                }
-                if (data.postupil) {
-                    setPostupil(data.postupil);
-                }
-                if (data.vipisan) {
-                    setVipisan(data.vipisan);
-                }
-                if(data.bmp){
-                    setBmp(data.bmp);
-                }
-                if(data.immunoglobulins){
-                    setImmunoglobulins(data.immunoglobulins);
-                }
-                if(data.propiska){
-                    setPropiska(data.propiska);
-                }
-                if(data.vosrt_pri_postup){
-                    setVosrPriPostp(data.vosrt_pri_postup);
-                }
-                if(data.mass_pri_rogd){
-                    setMassPriRogd(data.mass_pri_rogd);
-                }
-                if(data.srok_gist){
-                    setSrokGist(data.srok_gist);
-                }
-                if(data.diseases){
-                    setDiseases(data.diseases);
-                }
+                //console.log(data)
+                setAntibiotiki(data[0].value);
+                setPerevod(data[1].value);
+                setPostupil(data[2].value);
+                setVipisan(data[3].value);
+                setBmp(data[4].value);
+                setImmunoglobulins(data[5].value);
+                setPropiska(data[6].value);
+                setVosrPriPostp(data[7].value);
+                setMassPriRogd(data[8].value);
+                setSrokGist(data[9].value);
+                setDiseases(data[10].value);
             })
             .catch(err => console.error(err));
+        console.log(propiska)
     }, []);
 
     const handleSubmit = async (event) => {

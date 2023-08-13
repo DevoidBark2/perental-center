@@ -592,12 +592,30 @@ class ParamsModule{
 
     static async getAllParamsAdmin(){
         const query = {
-            text: `SELECT * FROM public.admin_params`,
+            text: `SELECT ap.*, acp.name as category_name, ap.name as param_name
+                    FROM admin_params as ap
+                    JOIN admin_category_params as acp ON ap.cat_id = acp.id`,
         };
-        const res = await pool.query(query);
 
+        const typesData = await pool.query('SELECT * from admin_types');
+        const types = typesData.rows.map((row) => ({
+            id: row.id,
+            value: row.name,
+            label: row.name,
+        }));
+        const categoryData = await pool.query('SELECT * from admin_category_params');
+        const category = categoryData.rows.map((row) => ({
+            id: row.id,
+            value: row.name,
+            label: row.name,
+        }));
+        const res = await pool.query(query);
         if (res.rows && res.rows.length > 0) {
-            return res.rows;
+            return {
+                "params": res.rows,
+                "types": types,
+                "category": category
+            }
         } else {
             return [];
         }

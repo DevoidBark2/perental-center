@@ -85,6 +85,10 @@ class AllDataForFormModule{
                "value" : postupil
            },
            {
+               "label": "Выписан",
+               "value" : vipisan
+           },
+           {
                "label" : "ВМБ",
                "value" : bmp
            },
@@ -96,9 +100,6 @@ class AllDataForFormModule{
                "label": "Прописка",
                "value": propiska
            },
-
-
-
            {
                "label" : "Возраст при поступлении",
                "value" : vosrt_pri_postup
