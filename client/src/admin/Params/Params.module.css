@@ -1,9 +1,43 @@
 .param_elem{
     padding: 20px;
-    width: 1000px;
     border: 1px solid #343434;
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+.add_new_param{
+    background: #5f98ff;
+    width: 300px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    color:white;
+    transition: 0.3s ease-in;
+}
+.add_new_param:hover{
+    background: #446cff;
+    cursor: pointer;
+}
+.modal_form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.params_items{
+    width: 60vw;
+}
+.params_block{
+    display: flex;
+}
+.filters_block{
+    width: 20vw;
+    margin-top: 70px;
+    margin-left: 50px;
+    box-shadow: 0 0 10px rgba(171, 171, 171, 0.9);
+    background-color: #e5e5ea;
+    border-radius: 20px;
+    padding: 30px 30px;
+}
+
+

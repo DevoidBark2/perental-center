@@ -18,7 +18,7 @@ function Auth(){
                 if(response.data.success){
                     localStorage.setItem('token', response.data.token);
                     navigate('/')
-                    console.log(response.data)
+                   // console.log(response.data)
                 }
                 else{
                     setError(response.data.message)

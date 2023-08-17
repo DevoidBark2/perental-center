@@ -38,7 +38,7 @@ class UsersModule{
     static async changeUser(data,id) {
         const { k_d, first_name, sur_name, last_name, vipisan, postupil, perevod, bsj, audioscrinning, fku, sosPriPost, perefKateter, linia, aminoven, lipofundin,
             grudVskar, smechVskar, isskusVskar, immunoglobulin, antibiotiki, bmp, propiska, vosrPriPost, massPriRog, srokGist, main_diseases, sub_diseases } = data.body;
-        console.log(data.body)
+        //console.log(data.body)
 
         try {
             const client = await pool.connect();

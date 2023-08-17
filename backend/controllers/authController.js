@@ -17,7 +17,7 @@ class AuthController{
 
             res.json({token:token,message:result.message})
         } catch (e) {
-            console.log(e);
+           // console.log(e);
             return res.status(400).json({ message: "Error registration!" });
         }
     }

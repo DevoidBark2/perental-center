@@ -22,11 +22,11 @@ function App() {
     const checkAuth = async () => {
         try {
             const token = localStorage.getItem('token');
-            console.log(token)
+            //console.log(token)
             if (token) {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                 const response = await axios.get('/api/auth/check');
-                console.log(response.data)
+                //console.log(response.data)
                 return response.data;
             }
         } catch (error) {
@@ -34,7 +34,7 @@ function App() {
         }
     };
     const location = useLocation();
-    console.log(auth)
+    //console.log(auth)
     useEffect(() => {
         checkAuth()
             .then(res => {

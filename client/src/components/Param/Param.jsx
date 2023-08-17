@@ -10,7 +10,7 @@ function Param () {
        axios.get("/api/get_param").then(res => setParams(res.data.data)).finally(() => setLoading(false))
     },[])
 
-    console.log(params)
+    //console.log(params)
 
     return (
      <>

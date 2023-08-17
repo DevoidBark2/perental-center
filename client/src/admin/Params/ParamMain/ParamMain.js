@@ -7,78 +7,139 @@ import Form from "react-bootstrap/Form";
 import {InputGroup} from "react-bootstrap";
 import Select from "react-select";
 import Button from "react-bootstrap/Button";
+import {toast, ToastContainer} from "react-toastify";
 
 const ParamMain = () => {
     const [params,setParams] = useState([])
     const [types,setTypes] = useState([])
     const [category,setCategory] = useState([])
     const [modal,setModal] = useState(false)
-    const [name,setName] = useState("")
 
-    useEffect( () => {
+    const [name,setName] = useState("")
+    const [typesValue,setTypesValue] = useState("")
+    const [categoryValue,setCategoryValue] = useState("")
+    function getParam(){
         axios.get("/api/get_param/get_param_admin").then(res => {
             setParams(res.data.data.params)
             setTypes(res.data.data.types)
             setCategory(res.data.data.category)
         })
+    }
+    useEffect( () => {
+        getParam()
     },[])
-    console.log(types)
+
+    const getTypeValue = () =>{
+        return types.find(c => c.value === typesValue)
+    }
+    const onChangeTypesValue = (newValue) =>{
+        setTypesValue(newValue.value)
+    }
+    const getCategoryValue = () =>{
+        return category.find(c => c.value === categoryValue)
+    }
+    const onChangeCategoryValue = (newValue) =>{
+        setCategoryValue(newValue.value)
+    }
+
+    const handleFormParam = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await axios.post('/api/get_param/create_new_param',{
+                name:name,
+                type: typesValue,
+                category: categoryValue
+            })
+            setModal(false)
+            if(response.data.data.success){
+                toast.success(response.data.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }
+            else{
+                toast.error(response.data.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }
+            getParam()
+        }catch (e){
+            console.log(e)
+        }
+    }
     return(
         <div>
-            <h2>Параметры</h2>
-            <div onClick={() => setModal(true)}>
-                Добавить новый параметр
-            </div>
-            <div>
-                {
-                    params.map(param => (
-                        <div className={styles.param_elem} key={param.id}>
-                            <Link to={`${param.id}`}>{param.name}</Link>
-                            <div>
-                                <p>Тип поля: {param.type_input}</p>
-                                <p>Категория: {param.category_name}</p>
-                            </div>
-                        </div>
-                    ))
-                }
+            <ToastContainer />
+            <div className={styles.params_block}>
+                <div>
+                    <h2>Параметры</h2>
+                    <p className={styles.add_new_param} onClick={() => setModal(true)}>
+                        Добавить новый параметр
+                    </p>
+                    <div className={styles.params_items}>
+                        {
+                            params ? params.map(param => (
+                                <div className={styles.param_elem} key={param.id}>
+                                    {/*<Form.Check aria-label="option 1" />*/}
+                                    <Link to={`${param.id}`}>{param.name}</Link>
+                                    <div>
+                                        <p>Тип поля: {param.type}</p>
+                                        <p>Категория: {param.category_name}</p>
+                                    </div>
+                                </div>
+                            )) : <h3>Параметров нет</h3>
+                        }
+                    </div>
+                </div>
+                <div className={styles.filters_block}>
+                    <h4 className="text-center">Фильтры</h4>
+
+                </div>
             </div>
             <ModalComponent modal={modal} setModal={setModal}>
-                {/*<input type="text" placeholder="Название"/>*/}
-                {/*<select name="" id="">*/}
-                {/*    <option value="">select</option>*/}
-                {/*    <option value="">checkbox</option>*/}
-                {/*    <option value="">text</option>*/}
-                {/*</select>*/}
-                {/*<select name="" id="">*/}
-                {/*    <option value="">Препараты</option>*/}
-                {/*    <option value="">Дополнительная информация</option>*/}
-                {/*    <option value="">Контактная информация</option>*/}
-                {/*</select>*/}
-                <form action="">
-                    <InputGroup>
-                        <Form.Control
-                            placeholder="Название"
-                            aria-label="Название"
-                            aria-describedby="basic-addon1"
-                            value={name}
-                            onChange={(event) => setName(event.target.value)}
+                <h3>Добавление нового параметра</h3>
+                <div className={styles.modal_form}>
+                    <form onSubmit={handleFormParam}>
+                        <InputGroup>
+                            <Form.Control
+                                placeholder="Название"
+                                aria-label="Название"
+                                aria-describedby="basic-addon1"
+                                value={name}
+                                onChange={(event) => setName(event.target.value)}
+                                required={true}
+                            />
+                        </InputGroup>
+                        <Select
+                            placeholder="Тип поля"
+                            options={types}
+                            value={getTypeValue()}
+                            onChange={onChangeTypesValue}
                             required={true}
                         />
-                    </InputGroup>
-                    <Select
-                        placeholder="Тип поля"
-                        options={types}
-                        // onChange={}
-                        required={true}
-                    />
-                    <Select
-                        placeholder="Категория"
-                        options={category}
-                        // onChange={}
-                        required={true}
-                    />
-                    <Button className={`col-md-3 ${styles.submit_btn}`} type="submit" bsstyle="primary">Добавить</Button>
-                </form>
+                        <Select
+                            placeholder="Категория"
+                            options={category}
+                            value={getCategoryValue()}
+                            onChange={onChangeCategoryValue}
+                            required={true}
+                        />
+                        <Button className={`col-md-3 ${styles.submit_btn}`} type="submit" bsstyle="primary">Добавить</Button>
+                    </form>
+                </div>
             </ModalComponent>
         </div>
     )

@@ -70,7 +70,6 @@ function AddUser () {
                 setDiseases(data[10].value);
             })
             .catch(err => console.error(err));
-        console.log(propiska)
     }, []);
 
     const handleSubmit = async (event) => {
@@ -135,7 +134,7 @@ function AddUser () {
             setSrokGistValue('')
             setDiseasesValue("")
             setSubDiseasesValue('')
-            console.log(vipisanValue)
+            //console.log(vipisanValue)
             toast.success(response.data.message, {
                 position: "top-right",
                 autoClose: 5000,

@@ -163,7 +163,7 @@ class ParamsModule{
             text: `SELECT bmp FROM patients`,
         };
         const res = await pool.query(query);
-        console.log(res)
+        //console.log(res)
         const outputObject = {};
 
         // Перебираем каждый элемент входного массива
@@ -198,7 +198,7 @@ class ParamsModule{
             text: `SELECT propiska FROM patients`,
         };
         const res = await pool.query(query);
-        console.log(res)
+        //console.log(res)
         const outputObject = {};
 
         // Перебираем каждый элемент входного массива
@@ -233,7 +233,7 @@ class ParamsModule{
             text: `SELECT vos_pri_post FROM patients`,
         };
         const res = await pool.query(query);
-        console.log(res)
+        //console.log(res)
         const outputObject = {};
 
         // Перебираем каждый элемент входного массива
@@ -269,7 +269,7 @@ class ParamsModule{
             text: `SELECT srok_gist FROM patients`,
         };
         const res = await pool.query(query);
-        console.log(res)
+        //console.log(res)
         const outputObject = {};
 
         // Перебираем каждый элемент входного массива
@@ -304,7 +304,7 @@ class ParamsModule{
             text: `SELECT main_disease FROM patients`,
         };
         const res = await pool.query(query);
-        console.log(res)
+       // console.log(res)
         const outputObject = {};
 
         // Перебираем каждый элемент входного массива
@@ -636,13 +636,51 @@ class ParamsModule{
         };
 
         const values_param = await pool.query(query2);
-
-        // if (values_param.rows && values_param.rows.length > 0) {
-        //     return values_param.rows;
-        // } else {
-        //     return [];
-        // }
         return {"site_name":name_category.rows,"values_param":values_param.rows}
+    }
+
+    static async createParam(req){
+        const {name,type,category} = req.body;
+
+        try{
+            const query = {
+                text: `SELECT id FROM admin_category_params WHERE name=$1`,
+                values: [category]
+            }
+            const category_id_result = await pool.query(query);
+            const category_id  = category_id_result.rows[0].id
+
+            const query3 = `INSERT INTO admin_params (name,cat_id,type) VALUES ($1,$2,$3)`
+            const values = [name,category_id,type]
+
+            const res = await pool.query(query3, values)
+            console.log(res)
+            return {success: true,message:"Новый параметр добавлен"}
+        }
+        catch (e){
+            return { success: false, message: e };
+        }
+
+    }
+    static async createValueParam(req) {
+        try {
+            const {name,params_id} = req.body;
+            const query = {
+                text: `INSERT INTO antibiotiki(label) VALUES($1)`,
+                values: [name]
+            }
+            await pool.query(query)
+
+            const query2 = {
+                text: `INSERT INTO admin_params_elem(params_id,name) VALUES($1,$2)`,
+                values: [params_id,name]
+            }
+            await pool.query(query2)
+
+            return {success: true,message:"Новое значение добавлено"}
+        }catch (e){
+            return {success: false,message:e}
+        }
     }
 }
 

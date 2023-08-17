@@ -14,5 +14,13 @@ class GetParamController{
         const result = await ParamsModule.getInfoParam(req);
         res.json({ data: result });
     }
+    async createParam(req,res) {
+        const result = await ParamsModule.createParam(req);
+        res.json({data:result})
+    }
+    async createValueParam(req,res){
+        const result = await ParamsModule.createValueParam(req);
+        res.json({data:result})
+    }
 }
 export default GetParamController;
